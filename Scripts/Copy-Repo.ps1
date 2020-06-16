@@ -17,6 +17,8 @@ Function Copy-Repo()
 		[Switch]$Force
     )
 
+    if ($RepoPath -and !($PSBoundParameters.ContainsKey('RootPath'))) { $RootPath = $RepoPath }
+
     [String]$Private:repoName = (Split-Path -Path $URI -Leaf) -replace '\.git$'
     [String]$Private:repoPath = Join-Path -Path $RootPath -ChildPath $Private:repoName
     [String]$Private:repoConfig = Join-Path -Path $Private:repoPath -ChildPath ".git/config"
