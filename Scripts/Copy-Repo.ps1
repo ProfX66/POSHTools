@@ -12,6 +12,8 @@ Function Copy-Repo()
 		[Parameter(Mandatory=$False)]
 		[String]$UserEmail = "prof@pxcnet.com",
 		[Parameter(Mandatory=$False)]
+		[String]$Branch,
+		[Parameter(Mandatory=$False)]
 		[Switch]$ConfigOnly,
 		[Parameter(Mandatory=$False)]
 		[Switch]$Force
@@ -47,8 +49,16 @@ Function Copy-Repo()
 
     if (!($ConfigOnly))
     {
-        Write-Host ("Cloning repo [ {0} ] into [ {1} ]..." -f $URI, $Private:repoPath)
-        git clone $URI $Private:repoPath
+        if ($Branch)
+        {
+            Write-Host ("Cloning repo [ {0} ] branch [ {1} ] into [ {2} ]..." -f $URI, $Branch, $Private:repoPath)
+            git clone -b $Branch $URI $Private:repoPath
+        }
+        else
+        {
+            Write-Host ("Cloning repo [ {0} ] into [ {1} ]..." -f $URI, $Private:repoPath)
+            git clone $URI $Private:repoPath
+        }
     }
 
     Write-Host ("Setting [ user.name ] to [ {0} ] in [ {1} ]..." -f $UserName, $Private:repoConfig)
