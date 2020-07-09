@@ -22,10 +22,13 @@ Function Copy-Repo()
     if ($RepoPath -and !($PSBoundParameters.ContainsKey('RootPath'))) { $RootPath = $RepoPath }
 
     [String]$Private:repoName = (Split-Path -Path $URI -Leaf) -replace '\.git$'
+    if ($Branch) { $Private:repoName = [String]::Concat($Private:repoName, ".", $Branch) }
+
     [String]$Private:repoPath = Join-Path -Path $RootPath -ChildPath $Private:repoName
     [String]$Private:repoConfig = Join-Path -Path $Private:repoPath -ChildPath ".git/config"
 
     Write-Verbose -Message ("      URI: {0}" -f $URI)
+    Write-Verbose -Message ("   Branch: {0}" -f $Branch)
     Write-Verbose -Message ("     Name: {0}" -f $Private:repoName)
     Write-Verbose -Message ("     Path: {0}" -f $Private:repoPath)
     Write-Verbose -Message ("   Config: {0}" -f $Private:repoConfig)
