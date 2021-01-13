@@ -20,7 +20,8 @@ $Modules | ForEach-Object {
 [String[]]$ScriptFolders = (
     "%RepoPath%\POSHTools",
     "%RepoPath%\POSHToolsPrivate",
-    "%RepoPath%\POSHToolsWork"
+    "%RepoPath%\POSHToolsWork",
+    "G:\Work\PSImport"
 )
 
 $ScriptFolders | ForEach-Object {
